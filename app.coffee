@@ -72,30 +72,19 @@ details_button.on Events.LongPress, (event) ->
 detials_back_button.on Events.Click, () -> 
 	flow.showPrevious()
 
-# States are very powerful and help a ton with keeping the code readable and predictable 	
-# Here I am adding two states to the menu layer (open, closed) open will position the menu at x:0 (right to the edge of the window on the left side)
-# closed will remove the menu off the screen to a position of x:-500 (far left of the visual part of teh screen) now when the menu is shown it will slide in from the left  
-menu.states.add	
-	open:
-		x:0
-	closed:
-		x:-500 
-		
-# Let's close the menu by default  
-menu.states.switchInstant('closed')
-
 # Add an Click Event to the HAM layer   
 HAM.on Events.Click, () ->
+	flow.showOverlayLeft(menu)
 # Now all we need to do to show the menu is call animate and pass in the state we want to switch to. In this case we want to switch the menu to the open position   	
-	menu.animate('open')
+# 	menu.animate('open')
 
 # close the menu when the cross layer is clicked  
 cross.on Events.Click,() ->
-# Here we are swithing the state of the menu to closed when we click the cross layer 	
-	menu.animate('closed')
+# Here we are swithing the state of the menu to closed when we click the cross layer 
+	flow.showPrevious(home)	
 
 
-_.each menu.subLayers, (layer,index) ->
+_.each menu_links.subLayers, (layer,index) ->
 	layer.on Events.MouseOver,() ->
 		@.subLayers[0].animate
 			properties:
@@ -108,7 +97,21 @@ _.each menu.subLayers, (layer,index) ->
 	 
 
 
+
 	 
+
+
+# States are very powerful and help a ton with keeping the code readable and predictable 	
+# Here I am adding two states to the menu layer (open, closed) open will position the menu at x:0 (right to the edge of the window on the left side)
+# closed will remove the menu off the screen to a position of x:-500 (far left of the visual part of teh screen) now when the menu is shown it will slide in from the left  
+# menu.states.add	
+# 	open:
+# 		x:0
+# 	closed:
+# 		x:-500 
+# 		
+# Let's close the menu by default  
+# menu.states.switchInstant('closed')
 	 
 	 
 	 
